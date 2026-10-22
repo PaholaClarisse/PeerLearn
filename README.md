@@ -41,4 +41,5 @@ Lancer ensuite `com.peerlearn.Scenarios` : il rejoue tous les scénarios et doit
 
 ## Compte administrateur de démonstration
 
+Après l'import, lancer GenererHash avec un mot de passe de votre choix, puis remplacer admin123 dans la table par le hash obtenu
 `admin@mail.fr`. Le mot de passe est celui qui a été défini avec `GenererHash`.

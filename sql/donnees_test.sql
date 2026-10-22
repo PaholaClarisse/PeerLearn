@@ -21,4 +21,4 @@ INSERT INTO matieres (nom) VALUES
     ('Anglais');
 
 INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe_hash, role)
-VALUES ('Admin', 'Root', 'admin@mail.fr', 'admin123', 'ADMIN');
+VALUES ('Admin', 'Root', 'admin@mail.fr', '120000$SMVwlCxak8DVx3ib9TtMIQ==$uxFGlT+OCNkLGw5pm64SocYz0e5J20h0VI/txtdkNAs=', 'ADMIN');
