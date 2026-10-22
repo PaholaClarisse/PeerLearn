@@ -1,0 +1,3 @@
+db.url=jdbc:mysql://localhost:3306/peerlearn?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Europe/Paris
+db.user=peerlearn_app
+db.password=A_REMPLIR

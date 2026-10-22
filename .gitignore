@@ -1,0 +1,11 @@
+# Mot de passe MySQL : ne jamais pousser sur GitHub
+db.properties
+
+# Fichiers générés par Maven
+target/
+
+# Fichiers personnels de l'éditeur
+nbproject/private/
+.idea/
+*.iml
+.vscode/
