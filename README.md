@@ -83,11 +83,8 @@ Les étudiants se créent eux-mêmes : bouton **Créer un compte** sur l'écran 
 
 | Adresse | Niveau | Rôle dans l'application |
 |---|---|---|
-| hugo@mail.fr, chloe@mail.fr, dylan@mail.fr | L1 | tutoré |
-| pahola@mail.fr, ines@mail.fr | L2 | tutoré |
-| yohan@mail.fr, emma@mail.fr | L3 | tuteur |
-| lucas@mail.fr | M1 | tuteur |
-| alice@mail.fr, sarah@mail.fr | M2 | tuteur |
+| hugo@mail.fr | L1 | tutoré |
+| alice@mail.fr | M2 | tuteur |
 
 Un étudiant de niveau L3 ou plus accède à l'**espace tuteur** ; un étudiant L1 ou L2 accède à l'**espace tutoré**. Un tuteur n'est pas tutoré.
 
