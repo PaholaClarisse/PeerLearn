@@ -689,6 +689,10 @@ public ArrayList<Exercice> consulterExercices(Utilisateur connecte) {
     return resultat;
 }
 
+public ArrayList<Exercice> mesExercices(Utilisateur connecte) {
+    return exerciceDAO.listerParTuteur(exigerEtudiant(connecte).getId());
+}
+
 public Rendu deposerRendu(Utilisateur connecte, Exercice exercice, String chemin) {
     Etudiant tutore = exigerEtudiant(connecte);
     Exercice x = chargerExercice(exercice);
