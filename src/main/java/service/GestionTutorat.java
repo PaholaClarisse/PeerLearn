@@ -11,6 +11,8 @@ package service;
 import java.util.Objects;
 import java.util.HashSet;
 import modele.Message;
+import util.ValidationMdp;
+import java.util.List;
 import dao.RapportDAO;
 import dao.SeanceDAO;
 import dao.EvaluationDAO;
@@ -74,6 +76,10 @@ public class GestionTutorat {
     }
     if (utilisateursDAO.chercherParEmail(email) != null) {
         throw new RegleGestionException("Un compte existe déjà avec cette adresse.");
+    }
+    List<String> erreurs = ValidationMdp.valider(mdp);
+    if(!erreurs.isEmpty()){
+        throw new RegleGestionException(String.join("\n", erreurs));
     }
     return utilisateursDAO.ajouterEtudiant(nom.trim(), prenom.trim(), email,
             MotDePasse.hacher(mdp), niveau);
@@ -770,8 +776,9 @@ public void changerMotDePasse(Utilisateur connecte, String ancien, String nouvea
     if (nouveau != null && MotDePasse.verifier(nouveau, u.getMdp())) {
         throw new RegleGestionException("Le nouveau mot de passe doit être différent de l'ancien.");
     }
-    if (nouveau == null || nouveau.length() < 8) {
-        throw new RegleGestionException("Le nouveau mot de passe doit contenir au moins 8 caractères.");
+     List<String> erreurs = ValidationMdp.valider(nouveau);
+    if(!erreurs.isEmpty()){
+        throw new RegleGestionException(String.join("\n", erreurs));
     }
     utilisateursDAO.modifierMotDePasse(u.getId(), MotDePasse.hacher(nouveau));
     notifier(u, "Votre mot de passe a été modifié.");
