@@ -44,7 +44,7 @@ public class TestNotificationDAO {
     public static void main(String[] args) {
         UtilisateurDAO utilisateurs = new UtilisateurDAO();
         NotificationDAO dao = new NotificationDAO();
-
+        int avant = utilisateurs.lister().size();
         Etudiant e1 = utilisateurs.ajouterEtudiant("Test", "Un", "test.n1@mail.fr", "mdp", Niveau.L1);
         Etudiant e2 = utilisateurs.ajouterEtudiant("Test", "Deux", "test.n2@mail.fr", "mdp", Niveau.L2);
 
@@ -78,14 +78,26 @@ public class TestNotificationDAO {
         attendreRefus("Message de plus de 500 caractères refusé",
                 () -> dao.ajouter(e1.getId(), "x".repeat(501)));
 
-        verifier("Suppression d'une notification", dao.supprimer(n1.getId()));
+        verifier("Suppression d'une notification", dao.supprimer(n1.getId(),e1.getId()));
+        // Une nouvelle notification non lue pour e1
+dao.ajouter(e1.getId(), "Nouvelle notification non lue.");
+
+verifier("Supprimer les lues : 1 ligne supprimée (la lue, pas la non lue)",
+        dao.supprimerLuesParUtilisateurs(e1.getId()) == 1);
+verifier("La notification non lue est conservée",
+        dao.compterNonLues(e1.getId()) == 1
+        && dao.listerParUtilisateur(e1.getId()).size() == 1);
+verifier("Supprimer les lues quand il n'y en a aucune : 0 ligne, sans erreur",
+        dao.supprimerLuesParUtilisateurs(e1.getId()) == 0);
+verifier("Les notifications de l'autre utilisateur ne sont pas touchées",
+        dao.listerParUtilisateur(e2.getId()).size() == 1);
         verifier("Suppression des notifications restantes du premier utilisateur : 1",
                 dao.supprimerParUtilisateur(e1.getId()) == 1);
         verifier("Suppression des notifications du second utilisateur : 1",
                 dao.supprimerParUtilisateur(e2.getId()) == 1);
         verifier("Suppression des deux comptes de test",
                 utilisateurs.supprimer(e1.getId()) && utilisateurs.supprimer(e2.getId()));
-        verifier("1 utilisateur dans la base", utilisateurs.lister().size() == 1);
+        verifier("1 utilisateur dans la base", utilisateurs.lister().size() == avant);
 
         System.out.println("---- Résultat : " + ok + " OK, " + echecs + " ECHEC ----");
     }
