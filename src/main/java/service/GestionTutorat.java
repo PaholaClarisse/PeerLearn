@@ -765,6 +765,22 @@ public void marquerNotificationsLues(Utilisateur connecte) {
     }
     notificationDAO.marquerToutesLues(connecte.getId());
 }
+public void supprimerNotificationsLues(Utilisateur connecte){
+    if(connecte == null){
+            throw new RegleGestionException("Vous devez être connecté.");  
+    }
+    notificationDAO.supprimerLuesParUtilisateurs(connecte.getId());
+}
+
+public void supprimerNotificationPrecise(Utilisateur connecte, int id_notif){
+    if(connecte == null){
+            throw new RegleGestionException("Vous devez être connecté.");  
+    }
+    boolean statut = notificationDAO.supprimer(id_notif, connecte.getId());
+    if(statut == false){
+        throw new RegleGestionException("Notification introuvable");
+    }
+}
 public void changerMotDePasse(Utilisateur connecte, String ancien, String nouveau) {
     if (connecte == null) {
         throw new RegleGestionException("Vous devez être connecté.");

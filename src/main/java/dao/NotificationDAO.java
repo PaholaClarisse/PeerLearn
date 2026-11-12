@@ -92,11 +92,22 @@ public class NotificationDAO {
         }
     }
 
-    public boolean supprimer(int id) {
+    public boolean supprimer(int id, int idUtilisateur) {
         try (Connection c = ConnexionBD.getConnexion();
-             PreparedStatement ps = c.prepareStatement("DELETE FROM notifications WHERE id = ?")) {
+             PreparedStatement ps = c.prepareStatement("DELETE FROM notifications WHERE id = ? AND id_utilisateur = ?")) {
             ps.setInt(1, id);
+            ps.setInt(2, idUtilisateur);
             return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw erreur(e);
+        }
+    }
+    public int supprimerLuesParUtilisateurs(int idUtilisateur){
+        String sql = "DELETE from notifications where id_utilisateur = ? and lue = TRUE";
+         try (Connection c = ConnexionBD.getConnexion();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, idUtilisateur);
+            return ps.executeUpdate();
         } catch (SQLException e) {
             throw erreur(e);
         }
